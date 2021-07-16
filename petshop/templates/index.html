@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block body %}
           <h4 class="display-4">Welcome to Species Pets</h4>
+          
           <p>
             <table class="table table-striped">
               <thead class="thead-dark">
@@ -11,7 +12,8 @@
                 <th scope="col"> <a href="/?order_by=sold&order={{order}}">Sold</a> </th>
                 <th scope="col"> <a href="/?order_by=species&order={{order}}">Species</a> </th>
               </tr>
-              </thead>
+              </thead> 
+                      
               {% for id, name, bought, sold, species in pets %}
               <tr>              
                 <td scope="row" class="petid" ><a href="{{url_for('pets.pet_info', pid=id)}}">{{id}}</a></td>
