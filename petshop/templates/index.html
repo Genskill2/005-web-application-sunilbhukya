@@ -1,28 +1,40 @@
 {% extends "base.html" %}
 {% block body %}
-          <h4 class="display-4">Welcome to Species Pets</h4>
-          
-          <p>
-            <table class="table table-striped">
-              <thead class="thead-dark">
-              <tr>
-                <th scope="col"> <a href="/?order_by=id&order={{order}}">#</a> </th>
-                <th scope="col"> <a href="/?order_by=name&order={{order}}">Name</a>  </th>
-                <th scope="col"> <a href="/?order_by=bought&order={{order}}">Bought</a>  </th>
-                <th scope="col"> <a href="/?order_by=sold&order={{order}}">Sold</a> </th>
-                <th scope="col"> <a href="/?order_by=species&order={{order}}">Species</a> </th>
-              </tr>
-              </thead> 
-                      
-              {% for id, name, bought, sold, species in pets %}
-              <tr>              
-                <td scope="row" class="petid" ><a href="{{url_for('pets.pet_info', pid=id)}}">{{id}}</a></td>
-                <td class="petname">{{name}} </td>
-                <td class="petbought">{{bought}}</td>
-                <td class="petsold">{{sold}}</td>
-                <td class="petspecies">{{species}}</td>
-              </tr>
-              {%endfor%}
-            </table>
-          </p>
+<h1 class="display-1">Edit pet</h1>
+<p>
+  <h6 class="display-6">
+    <u>{{name}}</u>
+    <span class="badge rounded-pill bg-secondary">{{species}}</span>
+  </h6>
+  <h6>Bought on {{bought}}
+  {%if sold %}
+  <span class="badge rounded-pill bg-success">Sold</span> (on {{sold}})
+  {% else %}
+  <span class="badge rounded-pill bg-primary">Available for sale</span>
+  {%endif%}
+  </h6>
+<form action="{{url_for('pets.edit', pid=id)}}" method="POST">
+  <div class="mb-3">
+    <label for = "description" class="form-label">Description</label><br/>
+    <textarea rows="10" id="description" class="form-control"
+              name="description">
+      {{description}}
+    </textarea>
+  </div>
+
+  <div class="mb-3">
+    <div class="form-check">
+      {# TODO  Add sold checkbox here #}
+      <label class="form-check-label" for="sold" > Sold </label>
+      <input type="checkbox" name="s" value="sold">
+
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <button type="submit" class="btn btn-primary">Update</button>
+  </div>
+
+</form>
+</p>
 {% endblock %}
